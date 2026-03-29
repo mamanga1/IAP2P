@@ -1,67 +1,69 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-🐝 m-ia: Interfaz de Comandos Inteligente
-Nodo Corrientes | Proyecto Mamangá
-------------------------------------------
-Este script permite administrar el sistema mediante lenguaje natural,
-sin comprometer la estabilidad de otros servicios como la radio.
+🐝 m-ia v2.0 - Cerebro de Administración Soberana
+Proyecto Mamangá | Nodo Corrientes
+----------------------------------------------
+Este script permite administrar servidores Debian mediante lenguaje natural.
+La IA detecta comandos faltantes y ofrece instalarlos automáticamente.
 """
+
 import os, sys, io, json, requests
 
-# Blindaje de encoding para terminales livianas
+# Blindaje de encoding para terminales de bajos recursos
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 
-# 🛡️ CARGA SEGURA: Cada usuario usa su propia API Key
-API_KEY = os.getenv("MAMANGA_IA_KEY")
+# CONFIGURACIÓN
+# Se recomienda usar variable de entorno: export MAMANGA_IA_KEY='tu_llave'
+API_KEY = os.getenv("MAMANGA_IA_KEY", "TU_API_KEY_AQUI")
 MODELO = "mistralai/mixtral-8x7b-instruct"
 
-if not API_KEY:
-    print("\n⚠️  ERROR: No se encontró la variable MAMANGA_IA_KEY.")
-    print("Configurala con: export MAMANGA_IA_KEY='tu_clave_aca'\n")
-    sys.exit(1)
+def ejecutar_m_ia():
+    print("\n🐝 m-ia - ADMINISTRACIÓN SOBERANA (Nodo .248)")
+    print("Escribí 'salir' para terminar.\n")
 
-print("\n🐝 m-ia - ADMINISTRACIÓN SOBERANA (Nodo .248)")
-print("Escribí 'salir' para terminar.\n")
+    # Instrucción de sistema para mantener la IA enfocada en comandos
+    messages = [{"role": "system", "content": "Sos una terminal Linux. Respondé ÚNICAMENTE con el comando solicitado. Sin explicaciones, sin texto extra. Solo el comando."}]
 
-messages = [{"role": "system", "content": "Sos m-ia, técnico de Corrientes. Respondé SOLO con el comando de Linux exacto. Sin sermones, sin explicaciones. El comando debe estar en la ÚLTIMA línea."}]
-
-while True:
-    try:
-        user_input = input("Vos 🧉> ").strip()
-        if user_input.lower() in ["salir", "exit", "q"]: 
-            print("¡Chau socio!")
-            break
-        
-        messages.append({"role": "user", "content": user_input})
-        
-        response = requests.post(
-            url="https://openrouter.ai/api/v1/chat/completions",
-            headers={"Authorization": f"Bearer {API_KEY}"},
-            json={"model": MODELO, "messages": messages}
-        )
-        
-        data = response.json()
-        if "choices" in data:
-            reply = data["choices"][0]["message"]["content"].strip()
-            # Limpieza de bloques de código Markdown
-            clean_reply = reply.replace("```bash", "").replace("```", "").strip()
+    while True:
+        try:
+            user_input = input("Vos 🧉> ").strip()
+            if user_input.lower() in ["salir", "exit", "q"]: 
+                print("¡Chau socio!")
+                break
             
-            # Tomamos la última línea para ejecución
-            lineas = clean_reply.split('\n')
-            comando = lineas[-1].replace("`", "").replace("$ ", "").strip()
+            messages.append({"role": "user", "content": user_input})
             
-            print(f"\nIA 🤖> {clean_reply}\n")
+            response = requests.post(
+                url="https://openrouter.ai/api/v1/chat/completions",
+                headers={"Authorization": f"Bearer {API_KEY}"},
+                json={"model": MODELO, "messages": messages}
+            )
             
-            # Filtro de seguridad para ejecución
-            if any(c in comando.lower() for c in ["ping", "ls", "apt", "cat", "ssh", "systemctl", "git", "df", "free"]):
-                confirmar = input(f"¿Ejecutar '{comando}'? (s/n): ").lower()
-                if confirmar == 's':
-                    print(f"🚀 Corriendo...\n")
-                    os.system(comando)
-                    print("\n---")
-        else:
-            print(f"⚠️ Error de API: {data}")
+            data = response.json()
+            if "choices" in data:
+                # Limpieza de la respuesta
+                reply = data["choices"][0]["message"]["content"].strip()
+                reply = reply.replace("```bash", "").replace("```", "").strip()
+                
+                # Extraemos el comando (última línea para evitar ruidos)
+                cmd = reply.split('\n')[-1].replace("`", "").replace("$ ", "").strip()
+                
+                print(f"\nIA 🤖> {reply}\n")
+                
+                # Filtro de seguridad: Ejecuta si detecta comandos conocidos o instalaciones
+                whitelist = ["ping", "ls", "apt", "cat", "ssh", "systemctl", "df", "free", "htop", "ip", "uname", "nmap", "whois", "nikto"]
+                if any(c in reply.lower() for c in whitelist) or "install" in reply.lower():
+                    confirmar = input(f"¿Ejecutar '{cmd}'? (s/n): ").lower()
+                    if confirmar == 's':
+                        print(f"🚀 Corriendo...\n")
+                        os.system(cmd)
+                        print("\n---")
+            else:
+                print(f"⚠️ Error de API: {data}")
 
-    except Exception as e:
-        print(f"⚠️ Error: {e}")
+        except Exception as e:
+            print(f"⚠️ Error: {e}")
+
+if __name__ == "__main__":
+    ejecutar_m_ia()
