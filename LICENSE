@@ -1,10 +1,9 @@
-GNU GENERAL PUBLIC LICENSE
-Version 3, 29 June 2007
+# IAP2P: LICENCIA DE SOBERANÍA TECNOLÓGICA (GPL v3 + Derechos de Autor)
 
-Copyright (C) 2026 MamangaMaster
+Copyright (C) 2026 MamangaMaster - Nodo Corrientes
 
-Everyone is permitted to copy and distribute verbatim copies
-of this license document, but changing it is not allowed.
+1. DERECHOS DE AUTOR: El diseño lógico, la arquitectura P2P y el motor m-ia son propiedad intelectual de MamangaMaster.
+2. COMERCIALIZACIÓN: El autor y los contribuidores autorizados conservan el derecho de vender servicios, hardware pre-configurado (nodos) y consultoría basada en esta infraestructura. 
+3. PROTECCIÓN ANTIPRIVATIZACIÓN: Si alguien utiliza este código para un fin comercial ajeno, está obligado por ley a citar la fuente original y a liberar cualquier mejora bajo estos mismos términos. 
 
-Este programa es software libre: puedes redistribuirlo y/o modificarlo
-bajo los términos de la Licencia Pública General de GNU.
+"El conocimiento es libre, pero el trabajo de infraestructura se respeta y se paga."
