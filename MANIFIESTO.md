@@ -1,11 +1,12 @@
-# 🐝 IAP2P: Infraestructura de IA Soberana
-**Nodo Corrientes | Proyecto Mamangá**
+# 🐝 IAP2P: La Revolución de la IA de Guerrilla
+**Infraestructura Inteligente Peer-to-Peer sobre Hardware Recuperado**
 
-## 🛡️ Declaración de Principios
-1. **Hardware Recuperado**: Operamos sobre netbooks de descarte. Con **230MB de RAM** construimos soberanía.
-2. **IA de Administración (m-ia)**: Gestión de nodos sin desperdiciar recursos locales.
-3. **Redes Horizontales**: Cada nodo (.248, Exo, Portal, Kati) es un par igualitario.
-4. **Economía de Intercambio (TOKOs)**: El valor reside en la colaboración, no en la moneda centralizada.
+## 🌋 Por qué esto cambia las reglas:
+
+1. **IA Sin Nube (Soberanía)**: La IA actual depende de servidores gigantes en EE.UU. IAP2P corre en una netbook de 230MB de RAM en Corrientes. Si se corta el cable submarino, tu red sigue pensando.
+2. **Arquitectura Enjambre**: No hay un "Cerebro Central". m-ia gestiona una flota donde cada nodo (Exo, Portal, .248) aporta lo que tiene. Si un nodo cae, la red sobrevive.
+3. **Eficiencia Extrema**: Mientras las Big Tech tiran hardware a la basura cada 2 años, IAP2P revive el silicio "muerto". Transformamos basura electrónica en activos estratégicos provinciales.
+4. **Monetización Real**: IAP2P permite crear economías locales (TOKOs) respaldadas por servicios reales: radio, energía, logística y auditoría de obra pública.
 
 ---
-*Escrito desde una Netbook con Debian 12 Pelado. El silicio no se tira, se milita.*
+*IAP2P: No pedimos permiso para innovar. Usamos lo que tenemos para construir lo que necesitamos.*
